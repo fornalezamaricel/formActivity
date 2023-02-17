@@ -2,34 +2,101 @@
 <html>
   <head>
     <title>Form Activity</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>Registration Form</h1>
-    <form>
-      First Name: <input type="text" name="firstname" />
-      <br />
-      Last Name:
-      <input type="text" name="lastname" />
-      <br />
-      Nick Name:
-      <input type="text" name="nickname" />
-      <br />
-      Email: <input type="email" name="email" />
-      <br />
-      Password: <input type="password" name="password" />
-      <br />
-      Date of Birth: <input type="date" name="bday" />
-      <br />
-      Gender: <input type="radio" name="male" value="male" /> Male
-      <input type="radio" name="female" value="female" /> Female
-      <input type="radio" name="other" value="other" /> Other
-      <br />
-      Mobile: <input type="number" name="mobile" />
-      <br />
-      Address: <textarea name="address" cols="25" rows="10"></textarea>
-      <br />
-      <input type="submit" name="submit" value="Submit" />
-      <input type="reset" name="reset" value="Reset" />
-    </form>
+    <div class="form">
+      <h1>Registration Form</h1>
+      <span id="success-message" class="success"></span>
+      <form name="myForm" action="javascript:void(0)">
+        <label for="firstname">First Name:</label>
+        <br />
+        <input type="text" name="firstname" />
+        <br />
+        <label for="lastname"> Last Name:</label>
+        <br />
+        <input type="text" name="lastname" />
+        <br />
+        <label for="nickname"> Nick Name:</label>
+        <br />
+        <input type="text" name="nickname" />
+        <br />
+        <label for="email">Email:</label>
+        <br />
+        <input type="email" name="email" />
+        <br />
+        <label for="password">Password:</label>
+        <br />
+        <input type="password" name="password" />
+
+        <span id="pass-message" class="error"></span>
+
+        <br />
+        <label for="bday">Date of Birth:</label>
+        <br />
+        <input type="date" name="bday" />
+        <span id="bday-message" class="error"></span>
+
+        <br />
+        <label for="male">Gender:</label>
+        <br />
+        <input type="radio" name="male" value="male" /> Male
+        <input type="radio" name="female" value="female" /> Female
+        <input type="radio" name="other" value="other" /> Other
+        <br />
+        <label for="mobile">Mobile: </label>
+        <br />
+        <input type="text" name="mobile" />
+        <br />
+        <label for="address"> Address:</label>
+        <br />
+        <textarea name="address" cols="25" rows="5"></textarea>
+        <br />
+        <input
+          type="submit"
+          name="submit"
+          value="Submit"
+          onclick="checkForm()"
+        />
+        <input type="reset" name="reset" value="Reset" />
+      </form>
+    </div>
   </body>
 </html>
+<script type="text/javascript">
+  function checkForm() {
+    var password = document.myForm.password.value;
+    var birthdate = document.myForm.bday.value;
+    var birthYear = birthdate.split("-")[0];
+    var year = new Date();
+    year = year.getFullYear();
+    var age = year - birthYear;
+    var error = false;
+    if (password.length < 8) {
+      document.getElementById("pass-message").innerHTML =
+        "Password must be at least 8 characters.";
+      error = true;
+    } else {
+      document.getElementById("pass-message").innerHTML = "";
+    }
+    if (age < 21) {
+      document.getElementById("bday-message").innerHTML =
+        "Minors are not allowed!";
+      error = true;
+    } else {
+      document.getElementById("bday-message").innerHTML = "";
+    }
+    if (!error) {
+      document.getElementById("success-message").innerHTML =
+        "Hooray! Your account has been successfully created.";
+    } else {
+      document.getElementById("success-message").innerHTML = "";
+    }
+  }
+</script>
